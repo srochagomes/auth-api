@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings1.0.0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchemainstance" xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+
+	<servers>
+		<server>
+			<id>Snapshots-RaiaDrogasil</id>
+			<username>nexusdeveloper</username>
+			<password>desenvolvimento</password>
+		</server>
+		<server>
+			<id>nexus</id>
+			<username>nexusdeveloper</username>
+			<password>desenvolvimento</password>
+		</server>
+	</servers>
+	<mirrors>
+		<mirror>
+			<id>nexus</id>
+			<mirrorOf>*</mirrorOf>
+			<url>http://10.1.1.219:8081/nexus/content/groups/public/</url>
+		</mirror>
+		<mirror>
+			<id>Snapshots-RaiaDrogasil</id>
+			<mirrorOf>codehaus.org;apachesnapshots;central;thirdparty;public</mirrorOf>
+			<url>http://10.1.1.219:8081/nexus/content/repositories/snapshots</url>
+		</mirror>
+	</mirrors>
+	<profiles>
+		<profile>
+			<id>raiadrogasilrepositories</id>
+			<properties>
+				<project.build.sourceEncoding>cp1252</project.build.sourceEncoding>
+				<nexus.raiadrogasil>http://10.1.1.219:8081/nexus</nexus.raiadrogasil>
+				<nexus.raiadrogasil.repository>${nexus.raiadrogasil}/content/repositories</nexus.raiadrogasil.repository>
+			</properties>
+			<repositories>
+				<repository>
+					<id>Releases-RaiaDrogasil</id>
+					<url>${nexus.raiadrogasil}/release</url>
+					<layout>default</layout>
+				</repository>
+				<repository>
+					<id>Snapshots-RaiaDrogasil</id>
+					<name>snapshots</name>
+					<url>${nexus.raiadrogasil}/snapshots</url>
+					<layout>default</layout>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>raiadrogasilrepositories</activeProfile>
+	</activeProfiles>
+</settings>

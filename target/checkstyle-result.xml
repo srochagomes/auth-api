@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.19">
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/ControlExceptionHandler.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/SwaggerConfig.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/KeyCloakAuthClient.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/util/Constants.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/controller/AuthbaseController.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/ExceptionResolver.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/BusinessException.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/AuthbaseApplication.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/service/AuthbaseService.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/dto/AuthbaseDTO.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/Authbase.java">
+</file>
+<file name="/home/sergio.121131/arquitetura/pocs/auth-base/src/main/resources/application.properties">
+</file>
+</checkstyle>

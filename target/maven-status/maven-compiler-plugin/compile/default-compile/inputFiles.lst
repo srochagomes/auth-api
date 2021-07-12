@@ -1,0 +1,11 @@
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/dto/AuthbaseDTO.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/SwaggerConfig.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/BusinessException.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/service/AuthbaseService.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/ControlExceptionHandler.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/util/Constants.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/AuthbaseApplication.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/controller/AuthbaseController.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/Authbase.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/KeyCloakAuthClient.java
+/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/ExceptionResolver.java
