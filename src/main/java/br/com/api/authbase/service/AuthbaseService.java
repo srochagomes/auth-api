@@ -1,4 +1,4 @@
-package br.com.rd.authbase.service;
+package br.com.api.authbase.service;
 
 import org.springframework.stereotype.Service;
 

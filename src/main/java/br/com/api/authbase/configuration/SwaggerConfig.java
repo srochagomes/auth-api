@@ -1,4 +1,4 @@
-package br.com.rd.authbase.configuration;
+package br.com.api.authbase.configuration;
 
 import java.util.ArrayList;
 import java.util.Collections;

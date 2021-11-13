@@ -1,12 +1,12 @@
-package br.com.rd.authbase.domain.dto;
+package br.com.api.authbase.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
@@ -25,8 +25,19 @@ public class AuthbaseDTO {
     private String granttype;
 
     @JsonProperty("client_secret")
-    private String secrete;
+    private String secret;
+
+    @JsonIgnore
+    @JsonProperty("username")
+    private String username;
+
+    @JsonIgnore
+    @JsonProperty("password")
+    private String password;
 
     private String scope;
+
+    @Builder.Default
+    private boolean clientDefault = false;
 
 }

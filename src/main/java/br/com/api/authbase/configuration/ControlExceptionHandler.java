@@ -1,7 +1,8 @@
-package br.com.rd.authbase.configuration;
+package br.com.api.authbase.configuration;
 
-import br.com.rd.authbase.exception.BusinessException;
-import br.com.rd.authbase.exception.ExceptionResolver;
+import br.com.api.authbase.exception.BusinessException;
+import br.com.api.authbase.exception.ExceptionResolver;
+import feign.FeignException;
 import org.slf4j.MDC;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,21 @@ public class ControlExceptionHandler {
 				.httpStatusCode(HttpStatus.INTERNAL_SERVER_ERROR)
 				.message(Optional.ofNullable(eThrowable.getMessage()).orElse(eThrowable.toString()))
 				.description(ExceptionResolver.getRootException(eThrowable))
+				.build();
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set(X_RD_TRACEID,this.getTraceID());
+
+		return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
+
+	}
+
+	@ExceptionHandler({ FeignException.class })
+	public ResponseEntity<Object> handleFeingException(FeignException eFeignException) {
+
+		BusinessException ex = BusinessException.builder()
+				.httpStatusCode(HttpStatus.resolve(eFeignException.status()))
+				.message(Optional.ofNullable(eFeignException.getMessage()).orElse(eFeignException.toString()))
+				.description(eFeignException.contentUTF8())
 				.build();
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(X_RD_TRACEID,this.getTraceID());

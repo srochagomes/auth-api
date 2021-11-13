@@ -1,4 +1,4 @@
-package br.com.rd.authbase;
+package br.com.api.authbase;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

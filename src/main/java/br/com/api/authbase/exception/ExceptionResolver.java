@@ -1,4 +1,4 @@
-package br.com.rd.authbase.exception;
+package br.com.api.authbase.exception;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 

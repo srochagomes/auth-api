@@ -1,14 +1,16 @@
-#Fri Jul 09 16:42:24 BRT 2021
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/SwaggerConfig.java=1625857451867
-configuration*?=626C9FD12FD49B1EED707B2AC0EF62BEF1708E26
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/dto/AuthbaseDTO.java=1625857451871
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/ControlExceptionHandler.java=1625857451867
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/controller/AuthbaseController.java=1625857451871
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/domain/Authbase.java=1625857451871
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/ExceptionResolver.java=1625857451871
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/AuthbaseApplication.java=1625858861746
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/util/Constants.java=1625857451871
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/exception/BusinessException.java=1625857451875
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/service/AuthbaseService.java=1625857451875
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/resources/application.properties=1625857451875
-/home/sergio.121131/arquitetura/pocs/auth-base/src/main/java/br/com/rd/authbase/configuration/KeyCloakAuthClient.java=1625858118242
+#Mon Oct 18 18:31:09 BRT 2021
+configuration*?=2046BA1B65425658AC6B3ACB23A346499DDC4EE
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/configuration/KeyCloakAuthClient.java=1634592630543
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/AuthbaseApplication.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/configuration/ControlExceptionHandler.java=1634592630543
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/domain/Authbase.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/exception/ExceptionResolver.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/exception/BusinessException.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/domain/dto/AuthbaseDTO.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/service/AuthbaseService.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/configuration/ClientCredentialDefault.java=1634592630543
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/domain/dto/KeyCloakAuthbase.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/resources/application.properties=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/util/Constants.java=1634592630543
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/controller/AuthbaseController.java=1634592630547
+/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/main/java/br/com/rd/authbase/configuration/SwaggerConfig.java=1634592630543

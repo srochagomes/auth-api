@@ -1,4 +1,4 @@
-package br.com.rd.authbase.util;
+package br.com.api.authbase.util;
 
 public class Constants {
 

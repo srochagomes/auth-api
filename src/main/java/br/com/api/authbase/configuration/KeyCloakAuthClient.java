@@ -1,9 +1,6 @@
-package br.com.rd.authbase.configuration;
+package br.com.api.authbase.configuration;
 
-import br.com.rd.authbase.domain.dto.AuthbaseDTO;
-import br.com.rd.authbase.domain.dto.KeyCloakAuthbase;
-import feign.Headers;
-import feign.Param;
+import br.com.api.authbase.domain.dto.KeyCloakAuthbase;
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
 import org.springframework.beans.factory.ObjectFactory;
@@ -15,16 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "keycloack-service",
-        url = "http://localhost:7888/auth/realms",
+        url = "${keycloak.realm.url}",
         configuration = {KeyCloakAuthClient.Configuration.class})
 public interface KeyCloakAuthClient {
 
-    @PostMapping(value = "/poc_realm/protocol/openid-connect/token",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "${keycloak.aplication.token.url}",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> processAuthMicrosservices(@RequestAttribute KeyCloakAuthbase authbaseDTO);
 
 

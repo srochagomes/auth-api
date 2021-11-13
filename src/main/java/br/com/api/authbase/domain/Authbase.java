@@ -1,4 +1,4 @@
-package br.com.rd.authbase.domain;
+package br.com.api.authbase.domain;
 
 import lombok.Data;
 

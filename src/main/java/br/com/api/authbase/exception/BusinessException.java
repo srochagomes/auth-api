@@ -1,4 +1,4 @@
-package br.com.rd.authbase.exception;
+package br.com.api.authbase.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
