@@ -1,2 +1,2 @@
-/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/test/java/br/com/rd/authbase/AuthbaseIT.java
-/home/sergio.121131/arquitetura/pocs/oms-oauth-server/src/test/java/br/com/rd/authbase/AuthbaseTest.java
+/home/sergio.121131/arquitetura/pocs/auth-api/src/test/java/com/api/authbase/AuthbaseIT.java
+/home/sergio.121131/arquitetura/pocs/auth-api/src/test/java/com/api/authbase/AuthbaseTest.java
