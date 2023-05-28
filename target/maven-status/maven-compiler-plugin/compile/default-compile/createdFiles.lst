@@ -8,10 +8,10 @@ com/api/authbase/util/Constants.class
 com/api/authbase/exception/ExceptionResolver.class
 com/api/authbase/controller/AuthbaseController.class
 com/api/authbase/exception/BusinessException$BusinessExceptionBody$BusinessExceptionBodyBuilder.class
-com/api/authbase/configuration/KeyCloakAuthClient$Configuration.class
 com/api/authbase/domain/dto/AuthbaseDTO$AuthbaseDTOBuilder.class
-com/api/authbase/domain/dto/KeyCloakAuthbase$KeyCloakAuthbaseBuilder.class
+com/api/authbase/configuration/KeyCloakAuthClient$Configuration.class
 com/api/authbase/domain/Authbase.class
+com/api/authbase/domain/dto/KeyCloakAuthbase$KeyCloakAuthbaseBuilder.class
 com/api/authbase/exception/BusinessException$BusinessExceptionBody.class
 com/api/authbase/service/AuthbaseService.class
 com/api/authbase/AuthbaseApplication.class

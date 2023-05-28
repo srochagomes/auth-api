@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.util.Optional;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class BusinessException extends RuntimeException {
 
     public BusinessExceptionBody getOnlyBody() {
         return BusinessExceptionBody.builder()
-                .code(this.code)
+                .code(Optional.ofNullable(this.code).orElseGet(()->this.httpStatusCode.toString()))
                 .message(this.message)
                 .description(this.description)
                 .build();

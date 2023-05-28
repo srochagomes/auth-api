@@ -27,11 +27,9 @@ public class AuthbaseDTO {
     @JsonProperty("client_secret")
     private String secret;
 
-    @JsonIgnore
     @JsonProperty("username")
     private String username;
 
-    @JsonIgnore
     @JsonProperty("password")
     private String password;
 

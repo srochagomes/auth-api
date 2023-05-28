@@ -3,7 +3,9 @@ package com.api.authbase.configuration;
 import com.api.authbase.exception.BusinessException;
 import com.api.authbase.exception.ExceptionResolver;
 import feign.FeignException;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.MDC;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
+@Configuration
 public class ControlExceptionHandler {
 
 	public static final String X_RD_TRACEID = "X-rd-traceid";
@@ -59,10 +62,12 @@ public class ControlExceptionHandler {
 	@ExceptionHandler({ FeignException.class })
 	public ResponseEntity<Object> handleFeingException(FeignException eFeignException) {
 
+		String description = ObjectUtils.isEmpty(eFeignException.contentUTF8())? "Cannot access the resource.": eFeignException.contentUTF8();
+
 		BusinessException ex = BusinessException.builder()
 				.httpStatusCode(HttpStatus.resolve(eFeignException.status()))
 				.message(Optional.ofNullable(eFeignException.getMessage()).orElse(eFeignException.toString()))
-				.description(eFeignException.contentUTF8())
+				.description(description)
 				.build();
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(X_RD_TRACEID,this.getTraceID());
