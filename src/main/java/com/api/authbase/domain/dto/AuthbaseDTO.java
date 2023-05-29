@@ -35,6 +35,9 @@ public class AuthbaseDTO {
 
     private String scope;
 
+    @JsonProperty("refresh_token")
+    private String refreshToken;
+
     @Builder.Default
     private boolean clientDefault = false;
 

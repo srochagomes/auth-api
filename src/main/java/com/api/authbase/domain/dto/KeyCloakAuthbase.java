@@ -22,10 +22,10 @@ public class KeyCloakAuthbase {
 
     private String client_secret;
 
-    @JsonIgnore
+    private String refresh_token;
+
     private String username;
 
-    @JsonIgnore
     private String password;
 
     private String scope;

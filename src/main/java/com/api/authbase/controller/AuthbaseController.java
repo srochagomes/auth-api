@@ -76,6 +76,34 @@ public class AuthbaseController {
     }
 
     @Operation(
+            description = "Autenticação do token API - Post")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Autenticação realizada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Informações inválidas para o processo"),
+            @ApiResponse(responseCode = "401", description = "Acesso não autorizado"),
+            @ApiResponse(responseCode = "403", description = "Acesso negado"),
+            @ApiResponse(responseCode = "500", description = "Erro desconhecido")})
+    @PostMapping(value = "/refresh", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> refreshToken(
+            @RequestBody @Valid @Parameter(description =  "AuthData", required = true, name =  "Authbase") AuthbaseDTO authbaseDTO
+    ) {
+        log.info("Chamada de refresh token");
+        KeyCloakAuthbase auth = null;
+
+        auth = KeyCloakAuthbase.builder()
+                .grant_type(authbaseDTO.getGranttype())
+                .client_id(authbaseDTO.getClientId())
+                .client_secret(authbaseDTO.getSecret())
+                .refresh_token(authbaseDTO.getRefreshToken())
+                .build();
+
+
+        ResponseEntity<String> stringResponseEntity = this.keyCloakAuthClient.processAuthMicrosservices(auth);
+        return stringResponseEntity;
+    }
+
+
+    @Operation(
             description = "Recupera a sessão do usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Consulta realizada com sucesso"),
