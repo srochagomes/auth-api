@@ -1,4 +1,4 @@
-com/api/authbase/configuration/SwaggerConfig.class
+com/api/authbase/domain/Authbase$AuthbaseBuilder.class
 com/api/authbase/configuration/KeyCloakAuthClient.class
 com/api/authbase/configuration/ClientCredentialDefault.class
 com/api/authbase/exception/BusinessException$BusinessExceptionBuilder.class

@@ -1,17 +1,17 @@
-#Fri Apr 07 16:36:51 BRT 2023
+#Fri Jun 23 18:23:42 BRT 2023
 configuration*?=F4556F31155FBB0D548CE57A27CA01B0DE880C34
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/controller/AuthbaseController.java=1658363099350
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/controller/AuthbaseController.java=1685295445119
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/ClientCredentialDefault.java=1658359767767
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/service/AuthbaseService.java=1658359767767
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/SwaggerConfig.java=1658363301251
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/KeyCloakAuthClient.java=1658359767767
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/KeyCloakAuthClient.java=1685234452798
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/exception/ExceptionResolver.java=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/Authbase.java=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/resources/application.properties=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/exception/BusinessException.java=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/resources/bootstrap.properties=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/dto/AuthbaseDTO.java=1658359767767
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/Authbase.java=1685234547917
+/home/programmer/desenvolvimento/testes/auth-api/src/main/resources/application.properties=1687550448698
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/exception/BusinessException.java=1680899944701
+/home/programmer/desenvolvimento/testes/auth-api/src/main/resources/bootstrap.properties=1680896457553
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/dto/AuthbaseDTO.java=1687550626309
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/util/Constants.java=1658359767767
 /home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/AuthbaseApplication.java=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/dto/KeyCloakAuthbase.java=1658359767767
-/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/ControlExceptionHandler.java=1658359767767
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/domain/dto/KeyCloakAuthbase.java=1687550642557
+/home/programmer/desenvolvimento/testes/auth-api/src/main/java/com/api/authbase/configuration/ControlExceptionHandler.java=1680900233235

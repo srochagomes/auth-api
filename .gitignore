@@ -1,6 +1,8 @@
 target/
 logs/
 
+target/**
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
@@ -14,6 +16,7 @@ logs/
 .springBeans
 .sts4-cache
 .m2
+
 
 
 ### IntelliJ IDEA ###
@@ -32,3 +35,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Shell devops ###
+create_image_on_server.sh
+increment-version.sh
+Dockerfile
+
