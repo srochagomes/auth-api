@@ -1,10 +1,9 @@
 package com.api.authbase.controller;
 
-import com.api.authbase.configuration.ClientCredentialDefault;
-import com.api.authbase.configuration.KeyCloakAuthClient;
+
 import com.api.authbase.domain.Authbase;
 import com.api.authbase.domain.dto.AuthbaseDTO;
-import com.api.authbase.domain.dto.KeyCloakAuthbase;
+import com.api.authbase.service.AuthbaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,9 +30,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class AuthbaseController {
 
-    private KeyCloakAuthClient keyCloakAuthClient;
-
-    private ClientCredentialDefault  clientCredentialDefault;
+    private AuthbaseService service;
 
     @Operation(
             description = "Autenticação do token API - Post")
@@ -48,30 +45,8 @@ public class AuthbaseController {
             @RequestBody @Valid @Parameter(description =  "AuthData", required = true, name =  "Authbase") AuthbaseDTO authbaseDTO
     ) {
         log.info("Chamada de login");
-        KeyCloakAuthbase auth = null;
 
-        if (authbaseDTO.isClientDefault()){
-            auth = KeyCloakAuthbase.builder()
-                    .grant_type(clientCredentialDefault.GRANT_TYPE)
-                    .client_id(clientCredentialDefault.getId())
-                    .client_secret(clientCredentialDefault.getSecret())
-                    .password(authbaseDTO.getPassword())
-                    .username(authbaseDTO.getUsername())
-                    .scope(authbaseDTO.getScope())
-                    .build();
-        }else{
-            auth = KeyCloakAuthbase.builder()
-                    .grant_type(authbaseDTO.getGranttype())
-                    .client_id(authbaseDTO.getClientId())
-                    .client_secret(authbaseDTO.getSecret())
-                    .password(authbaseDTO.getPassword())
-                    .username(authbaseDTO.getUsername())
-                    .scope(authbaseDTO.getScope())
-                    .build();
-        }
-
-
-        ResponseEntity<String> stringResponseEntity = this.keyCloakAuthClient.processAuthMicrosservices(auth);
+        ResponseEntity<String> stringResponseEntity = service.userAuthentication(authbaseDTO);
         return stringResponseEntity;
     }
 
@@ -88,18 +63,7 @@ public class AuthbaseController {
             @RequestBody @Valid @Parameter(description =  "AuthData", required = true, name =  "Authbase") AuthbaseDTO authbaseDTO
     ) {
         log.info("Chamada de refresh token");
-        KeyCloakAuthbase auth = null;
-
-        auth = KeyCloakAuthbase.builder()
-                .grant_type(authbaseDTO.getGranttype())
-                .client_id(authbaseDTO.getClientId())
-                .client_secret(authbaseDTO.getSecret())
-                .refresh_token(authbaseDTO.getRefreshToken())
-                .build();
-
-
-        ResponseEntity<String> stringResponseEntity = this.keyCloakAuthClient.processAuthMicrosservices(auth);
-        return stringResponseEntity;
+        return service.processRefreshToken(authbaseDTO);
     }
 
 
@@ -117,7 +81,7 @@ public class AuthbaseController {
     ) {
         log.info("Chamada de session");
 
-        ResponseEntity<String> session = this.keyCloakAuthClient.getSession(headers);
+        ResponseEntity<String> session = service.getSession(headers);
 
         return ResponseEntity.ok( Authbase.builder().token(session.getBody()).build());
 

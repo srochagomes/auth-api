@@ -2,6 +2,7 @@ package com.api.authbase.configuration;
 
 import com.api.authbase.exception.BusinessException;
 import com.api.authbase.exception.ExceptionResolver;
+import com.api.authbase.exception.NotFoundException;
 import feign.FeignException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.MDC;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -36,6 +38,15 @@ public class ControlExceptionHandler {
 	public static final String CONSTRAINT_VALIDATION_FAILED = "Constraint validation failed";
 	private static final String TRACE_ID_KEY = "traceid";;
 
+
+	@ExceptionHandler(value = { NotFoundException.class})
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	protected ResponseEntity<Object> handleNotFound(NotFoundException ex, WebRequest request) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set(X_RD_TRACEID,this.getTraceID());
+		return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
+
+	}
 	@ExceptionHandler(value = { BusinessException.class})
 	protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
 		HttpHeaders responseHeaders = new HttpHeaders();

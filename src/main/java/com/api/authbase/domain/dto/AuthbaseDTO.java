@@ -1,5 +1,6 @@
 package com.api.authbase.domain.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,5 +40,6 @@ public class AuthbaseDTO {
 
     @Builder.Default
     private boolean clientDefault = false;
+
 
 }
