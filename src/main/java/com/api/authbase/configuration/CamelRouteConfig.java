@@ -25,5 +25,11 @@ public class CamelRouteConfig extends RouteBuilder {
                 .unmarshal(jacksonDataFormat)
                 .bean(userCreatedEventListener,"processEvent")
                                 .end();
+
+        from("{{command.origin.user-auth-send-email}}")
+                .marshal(jacksonDataFormat)
+                .log("Enviando mensagem para o RabbitMQ: ${body}")
+                .to("{{command.destiny.rabbit-mq.user-auth-send-email")
+                .end();
     }
 }

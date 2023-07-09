@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "TB_USER_AUTH")
@@ -56,6 +58,16 @@ public class UserAuth {
     private String userProviderUrl;
 
 
+    public String extractKeyFromUserProviderUrl(){
 
+        Pattern pattern = Pattern.compile("\\/([^\\/]+)$");
+        Matcher matcher = pattern.matcher(this.getUserProviderUrl());
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+
+        return null;
+    }
 
 }

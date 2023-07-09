@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.RequestInterceptor;
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
+import jakarta.websocket.server.PathParam;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +18,11 @@ import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "keycloack-admin-service",
         url = "${keycloak.admin.realm.url}",
@@ -27,6 +31,25 @@ public interface KeyCloakAdminClient {
 
     @PostMapping(value = "${keycloak.admin.user.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
     ResponseEntity<String> createUser(@RequestBody UserDTO user);
+
+    @PutMapping(value = "${keycloak.admin.user.execute-actions.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
+    ResponseEntity<String> sendEmailExecuteActionsToUser( @PathVariable ("id") String id,
+                                                  @RequestParam(value = "client_id",required = false) String clientId,
+                                                  @RequestParam(value = "lifespan",required = false) String lifespan,
+                                                  @RequestParam(value = "redirect_uri",required = false) String redirectUri,
+                                                  @RequestBody String body);
+
+    @PutMapping(value = "${keycloak.admin.user.verify-email.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
+    ResponseEntity<String> sendEmailVerifyToUser(@PathVariable ("id") String id,
+                                                          @RequestParam(value = "client_id",required = false) String clientId,
+                                                          @RequestParam(value = "redirect_uri",required = false) String redirectUri);
+
+    @PutMapping(value = "${keycloak.admin.user.logout.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
+    ResponseEntity<String> logoutUser( @PathParam ("id") String id);
+
+
+
+
 
     class Configuration {
 
@@ -66,7 +89,7 @@ public interface KeyCloakAdminClient {
                             .password(password)
                             .scope("roles")
                             .build();
-                    ResponseEntity<String> resp = service.adminAuthentication(authBaseDto);
+                    ResponseEntity<String> resp = service.userAuthentication(authBaseDto);
                     this.token = mapper.readValue(resp.getBody(), TokenDTO.class);
                 }
 

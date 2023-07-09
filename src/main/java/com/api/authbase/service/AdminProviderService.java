@@ -4,10 +4,12 @@ import com.api.authbase.configuration.KeyCloakAdminClient;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
 import com.api.authbase.domain.parse.UserAuthParser;
 import com.api.authbase.domain.parse.UserProviderParser;
+import com.api.authbase.event.UserAuthCreated;
 import com.api.authbase.repository.UserAuthRepository;
 import com.api.authbase.repository.entity.UserAuth;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,8 @@ public class AdminProviderService {
     private KeyCloakAdminClient keyCloakAdminClient;
 
     private UserAuthRepository repository;
+
+    private ApplicationEventPublisher eventPublisher;
 
 
     @Transactional(rollbackFor = Throwable.class)
@@ -42,12 +46,13 @@ public class AdminProviderService {
                 userRegistered.setUserProviderUrl(location.get());
             }
 
+            eventPublisher.publishEvent(new UserAuthCreated(this, userRegistered));
+
             if (!userResponde.getStatusCode().is2xxSuccessful()){
                 log.error("Erro ao registrar o usuario ",userCreatedDTO);
                 log.error(userResponde.getBody());
                 throw new RuntimeException("Erro ao criar usuário "+ userResponde.toString());
             }
         }
-
     }
 }

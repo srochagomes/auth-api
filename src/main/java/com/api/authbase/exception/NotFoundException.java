@@ -21,7 +21,8 @@ public class NotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore
-    private final HttpStatus httpStatusCode;
+    @Builder.Default
+    private final HttpStatus httpStatusCode = HttpStatus.NOT_FOUND;
 
     @Builder.Default
     private final String code = "404";

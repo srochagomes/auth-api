@@ -23,8 +23,6 @@ public class AccountCreatedDTO {
 
     private String application;
 
-    private String userNameOwner;
-
     private String email;
 
     private Boolean termAccept;
