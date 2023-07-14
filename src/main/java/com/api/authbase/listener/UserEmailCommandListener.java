@@ -1,5 +1,6 @@
 package com.api.authbase.listener;
 
+import com.api.authbase.domain.parse.UserAuthCreatedMessageParser;
 import com.api.authbase.event.UserAuthCreated;
 import lombok.AllArgsConstructor;
 import org.apache.camel.Produce;
@@ -11,7 +12,7 @@ import java.util.Collections;
 
 @Component
 @AllArgsConstructor
-public class UserAuthCreatedListener implements EventListener<UserAuthCreated>{
+public class UserEmailCommandListener implements EventListener<UserAuthCreated>{
 
     @Produce("{{command.origin.user-auth-send-email}}")
     private ProducerTemplate template;
@@ -19,6 +20,8 @@ public class UserAuthCreatedListener implements EventListener<UserAuthCreated>{
     @TransactionalEventListener
     @Override
     public void processEvent(UserAuthCreated event) {
-        template.sendBodyAndHeaders(template.getDefaultEndpoint(),event.getPayload(), Collections.emptyMap());
+        template.sendBodyAndHeaders(template.getDefaultEndpoint(),
+                new UserAuthCreatedMessageParser(event).asDTO(),
+                Collections.emptyMap());
     }
 }

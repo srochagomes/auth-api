@@ -2,6 +2,8 @@ package com.api.authbase.service;
 
 import com.api.authbase.configuration.KeyCloakAdminClient;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
+import com.api.authbase.domain.enums.DomainType;
+import com.api.authbase.domain.enums.MessageType;
 import com.api.authbase.domain.parse.UserAuthParser;
 import com.api.authbase.domain.parse.UserProviderParser;
 import com.api.authbase.event.UserAuthCreated;
@@ -46,7 +48,12 @@ public class AdminProviderService {
                 userRegistered.setUserProviderUrl(location.get());
             }
 
-            eventPublisher.publishEvent(new UserAuthCreated(this, userRegistered));
+            var userAuthCreated = new UserAuthCreated(this, userRegistered);
+            userAuthCreated.setType(MessageType.EMAIL);
+            userAuthCreated.setDomainType(DomainType.ACCOUNT_CONFIRMATION);
+            userAuthCreated.setName(userCreatedDTO.getFirstNameByName());
+
+            eventPublisher.publishEvent(userAuthCreated);
 
             if (!userResponde.getStatusCode().is2xxSuccessful()){
                 log.error("Erro ao registrar o usuario ",userCreatedDTO);
