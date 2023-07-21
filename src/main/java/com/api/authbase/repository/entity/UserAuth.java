@@ -57,14 +57,17 @@ public class UserAuth {
     @Column(name = "DS_USER_ADDRESS_PROVIDER")
     private String userProviderUrl;
 
+    @Column(name = "ID_USER_PROVIDER")
+    private UUID userProviderId;
 
-    public String extractKeyFromUserProviderUrl(){
+
+    public UUID extractKeyFromUserProviderUrl(){
 
         Pattern pattern = Pattern.compile("\\/([^\\/]+)$");
         Matcher matcher = pattern.matcher(this.getUserProviderUrl());
 
         if (matcher.find()) {
-            return matcher.group(1);
+            return UUID.fromString(matcher.group(1));
         }
 
         return null;

@@ -36,7 +36,7 @@ public class AuthbaseIT {
 	public void getMethodTest_whenDo_expectedResult() {
 		Optional<UserAuth> userFound = userAuthRepository.findById(UUID.fromString("8c6e6a56-8ef4-447d-b48b-c5ac6522e6f9"));
 
-		ResponseEntity<String> user = keyCloakAdminClient.sendEmailVerifyToUser(userFound.get().extractKeyFromUserProviderUrl(),
+		ResponseEntity<String> user = keyCloakAdminClient.sendEmailVerifyToUser(userFound.get().extractKeyFromUserProviderUrl().toString(),
 				"eselwer-admin", "http://localhost:3000/teste");
 		Assert.assertEquals(user.getStatusCode().value(),204);
 		Assert.assertTrue(true);
