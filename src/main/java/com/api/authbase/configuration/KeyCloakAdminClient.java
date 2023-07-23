@@ -1,6 +1,7 @@
 package com.api.authbase.configuration;
 
 import com.api.authbase.domain.dto.AuthbaseDTO;
+import com.api.authbase.domain.dto.EmailVerifiedDTO;
 import com.api.authbase.domain.dto.TokenDTO;
 import com.api.authbase.domain.dto.provider.UserDTO;
 import com.api.authbase.service.AuthbaseService;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.UUID;
 
 @FeignClient(name = "keycloack-admin-service",
         url = "${keycloak.admin.realm.url}",
@@ -47,6 +50,9 @@ public interface KeyCloakAdminClient {
     @PutMapping(value = "${keycloak.admin.user.logout.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
     ResponseEntity<String> logoutUser( @PathParam ("id") String id);
 
+    @PutMapping(value = "${keycloak.admin.user.by-id.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
+    ResponseEntity<?> confirmEmailVerified( @PathVariable ("id") UUID id,
+                                                 @RequestBody EmailVerifiedDTO body);
 
 
 

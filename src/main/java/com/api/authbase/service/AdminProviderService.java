@@ -1,6 +1,8 @@
 package com.api.authbase.service;
 
 import com.api.authbase.configuration.KeyCloakAdminClient;
+import com.api.authbase.domain.dto.EmailVerifiedDTO;
+import com.api.authbase.domain.dto.UserAccessConfirmedDTO;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
 import com.api.authbase.domain.enums.DomainType;
 import com.api.authbase.domain.enums.MessageType;
@@ -10,8 +12,6 @@ import com.api.authbase.event.UserAuthCreated;
 import com.api.authbase.exception.NotFoundException;
 import com.api.authbase.repository.ApplicationDataRepository;
 import com.api.authbase.repository.UserAuthRepository;
-import com.api.authbase.repository.entity.AccessConfirm;
-import com.api.authbase.repository.entity.ApplicationData;
 import com.api.authbase.repository.entity.UserAuth;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -82,5 +82,17 @@ public class AdminProviderService {
                 throw new RuntimeException("Erro ao criar usuário "+ userResponde.toString());
             }
         }
+    }
+
+    public UserAccessConfirmedDTO confirmEmailVerified(UserAccessConfirmedDTO userAccessConfirmeDTO){
+
+        keyCloakAdminClient.confirmEmailVerified(
+                userAccessConfirmeDTO.getUserProviderId(),
+                EmailVerifiedDTO.builder()
+                        .emailVerified(userAccessConfirmeDTO.hasEmailVerified())
+                        .build()
+        );
+
+        return userAccessConfirmeDTO;
     }
 }

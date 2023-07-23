@@ -1,10 +1,15 @@
 package com.api.authbase.service;
 
+import com.api.authbase.event.UserAccessConfirmed;
+import com.api.authbase.exception.BusinessException;
+import com.api.authbase.exception.NotFoundException;
 import com.api.authbase.repository.AccessConfirmRepository;
 import com.api.authbase.repository.entity.AccessConfirm;
 import com.api.authbase.repository.entity.UserAuth;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +22,8 @@ public class AccessConfirmService {
 
     private AccessConfirmRepository repository;
 
+    private ApplicationEventPublisher eventPublisher;
+
     @Transactional
     public AccessConfirm create(UserAuth userAuh){
 
@@ -28,5 +35,22 @@ public class AccessConfirmService {
         var accessConfirmCreated = repository.save(accessConfirm);
 
         return accessConfirmCreated;
+    }
+
+    @Transactional
+    public void processUserConfirm(UUID key) {
+        AccessConfirm accessConfirm = repository.findById(key).orElseThrow(() -> NotFoundException.builder().description("Key not found").build());
+
+        if (accessConfirm.isConfirmed()){
+            throw BusinessException.builder()
+                    .httpStatusCode(HttpStatus.CONFLICT)
+                    .code("001")
+                    .description("Key has already utilized")
+                    .build();
+        }
+
+        accessConfirm.registerConfirmation();
+        eventPublisher.publishEvent(UserAccessConfirmed.newInstance(this, accessConfirm));
+
     }
 }

@@ -3,7 +3,6 @@ package com.api.authbase.event;
 import com.api.authbase.domain.enums.DomainType;
 import com.api.authbase.domain.enums.MessageType;
 import com.api.authbase.repository.entity.UserAuth;
-
 import org.springframework.context.ApplicationEvent;
 
 
@@ -60,4 +59,9 @@ public class UserAuthCreated extends ApplicationEvent {
     public void setUrlConfirmation(String urlConfirmation) {
         this.urlConfirmation = urlConfirmation;
     }
+
+    public static UserAuthCreated newInstance(Object source, UserAuth payload){
+        return new UserAuthCreated(source, payload);
+    }
+
 }
