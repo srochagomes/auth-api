@@ -1,7 +1,6 @@
 package com.api.authbase.configuration;
 
 import com.api.authbase.domain.dto.AuthbaseDTO;
-import com.api.authbase.domain.dto.EmailVerifiedDTO;
 import com.api.authbase.domain.dto.TokenDTO;
 import com.api.authbase.domain.dto.provider.UserDTO;
 import com.api.authbase.service.AuthbaseService;
@@ -51,8 +50,8 @@ public interface KeyCloakAdminClient {
     ResponseEntity<String> logoutUser( @PathParam ("id") String id);
 
     @PutMapping(value = "${keycloak.admin.user.by-id.url}",consumes = MediaType.APPLICATION_JSON_VALUE )
-    ResponseEntity<?> confirmEmailVerified( @PathVariable ("id") UUID id,
-                                                 @RequestBody EmailVerifiedDTO body);
+    ResponseEntity<?> userUpdate(@PathVariable ("id") UUID id,
+                                 @RequestBody UserDTO body);
 
 
 

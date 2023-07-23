@@ -1,12 +1,13 @@
 package com.api.authbase.service;
 
 import com.api.authbase.configuration.KeyCloakAdminClient;
-import com.api.authbase.domain.dto.EmailVerifiedDTO;
 import com.api.authbase.domain.dto.UserAccessConfirmedDTO;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
+import com.api.authbase.domain.dto.provider.CredentialRepresentationDTO;
+import com.api.authbase.domain.dto.provider.UserDTO;
 import com.api.authbase.domain.enums.DomainType;
 import com.api.authbase.domain.enums.MessageType;
-import com.api.authbase.domain.parse.UserAuthParser;
+import com.api.authbase.domain.parse.UserAuthCreatedParser;
 import com.api.authbase.domain.parse.UserProviderParser;
 import com.api.authbase.event.UserAuthCreated;
 import com.api.authbase.exception.NotFoundException;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,7 +47,7 @@ public class AdminProviderService {
         Optional<UserAuth> userFound = repository.findById(UUID.fromString(userCreatedDTO.getKey()));
 
         if (userFound.isEmpty()){
-            var parser = new UserAuthParser(userCreatedDTO);
+            var parser = new UserAuthCreatedParser(userCreatedDTO);
             var userRegistered = repository.save(parser.asEntity());
             var accessConfirmCreated = accessConfirmService.create(userRegistered);
 
@@ -86,10 +88,16 @@ public class AdminProviderService {
 
     public UserAccessConfirmedDTO confirmEmailVerified(UserAccessConfirmedDTO userAccessConfirmeDTO){
 
-        keyCloakAdminClient.confirmEmailVerified(
+        keyCloakAdminClient.userUpdate(
                 userAccessConfirmeDTO.getUserProviderId(),
-                EmailVerifiedDTO.builder()
+                UserDTO.builder()
                         .emailVerified(userAccessConfirmeDTO.hasEmailVerified())
+                        .credentials(Arrays.asList(
+                                CredentialRepresentationDTO.builder()
+                                        .temporary(false)
+                                        .value(userAccessConfirmeDTO.getCredential().getValue())
+                                        .build()
+                        ))
                         .build()
         );
 

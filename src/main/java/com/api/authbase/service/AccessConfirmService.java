@@ -1,5 +1,8 @@
 package com.api.authbase.service;
 
+import com.api.authbase.domain.dto.CredentialDTO;
+import com.api.authbase.domain.dto.UserAccountDTO;
+import com.api.authbase.domain.parse.UserAuthParser;
 import com.api.authbase.event.UserAccessConfirmed;
 import com.api.authbase.exception.BusinessException;
 import com.api.authbase.exception.NotFoundException;
@@ -38,7 +41,7 @@ public class AccessConfirmService {
     }
 
     @Transactional
-    public void processUserConfirm(UUID key) {
+    public UserAccountDTO processUserConfirm(UUID key, CredentialDTO newCredential) {
         AccessConfirm accessConfirm = repository.findById(key).orElseThrow(() -> NotFoundException.builder().description("Key not found").build());
 
         if (accessConfirm.isConfirmed()){
@@ -50,7 +53,7 @@ public class AccessConfirmService {
         }
 
         accessConfirm.registerConfirmation();
-        eventPublisher.publishEvent(UserAccessConfirmed.newInstance(this, accessConfirm));
-
+        eventPublisher.publishEvent(UserAccessConfirmed.newInstance(this, accessConfirm, newCredential));
+        return UserAuthParser.newInstance(accessConfirm.getUserAuth()).asDTO();
     }
 }

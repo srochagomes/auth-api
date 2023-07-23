@@ -1,6 +1,8 @@
 package com.api.authbase.controller;
 
 
+import com.api.authbase.domain.dto.CredentialDTO;
+import com.api.authbase.domain.dto.UserAccountDTO;
 import com.api.authbase.service.AccessConfirmService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,13 +40,14 @@ public class UserController {
             @ApiResponse(responseCode = "403", description = "Acesso negado"),
             @ApiResponse(responseCode = "500", description = "Erro desconhecido")})
     @PutMapping(value = "/emails/{key}/verified", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> userConfirm(
-            @PathVariable(name = "key") UUID key
+    public ResponseEntity<UserAccountDTO> userConfirm(
+            @PathVariable(name = "key") UUID key,
+            @RequestBody CredentialDTO newCredential
     ) {
-        log.info("Chamada de refresh token");
-        accessConfirmService.processUserConfirm(key);
+        log.info("user confirm");
+        var userAccountDTO = accessConfirmService.processUserConfirm(key, newCredential);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(userAccountDTO);
     }
 
 }

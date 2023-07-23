@@ -1,29 +1,24 @@
 package com.api.authbase.domain.parse;
 
 import com.api.authbase.domain.dto.AccountCreatedDTO;
-import com.api.authbase.domain.dto.UserAccountDTO;
+import com.api.authbase.domain.dto.UserAccountCreatedDTO;
 import com.api.authbase.repository.entity.UserAuth;
 
 import java.util.UUID;
 
-public class UserAuthParser extends Parser<UserAccountDTO, UserAuth> {
-    public static UserAuthParser newInstance(UserAccountDTO dtoOut){
-        return new UserAuthParser(dtoOut);
-    }
-    public static UserAuthParser newInstance(UserAuth userOut){
-        return new UserAuthParser(userOut);
-    }
-    public UserAuthParser(UserAccountDTO dtoOut){
+public class UserAuthCreatedParser extends Parser<UserAccountCreatedDTO, UserAuth> {
+
+    public UserAuthCreatedParser(UserAccountCreatedDTO dtoOut){
         this.dto = dtoOut;
         this.entity = this.transformDTO(dtoOut);
     }
-    public UserAuthParser(UserAuth userOut){
+    public UserAuthCreatedParser(UserAuth userOut){
         this.entity = userOut;
         this.dto = this.transformEntity(userOut);
     }
 
     @Override
-    protected UserAuth transformDTO(UserAccountDTO userDto) {
+    protected UserAuth transformDTO(UserAccountCreatedDTO userDto) {
         AccountCreatedDTO account = userDto.getAccount();
         return UserAuth.builder()
                 .key(UUID.fromString(userDto.getKey()))
@@ -39,8 +34,8 @@ public class UserAuthParser extends Parser<UserAccountDTO, UserAuth> {
     }
 
     @Override
-    protected UserAccountDTO transformEntity(UserAuth userAuth) {
-        return UserAccountDTO.builder()
+    protected UserAccountCreatedDTO transformEntity(UserAuth userAuth) {
+        return UserAccountCreatedDTO.builder()
                 .key(userAuth.getKey().toString())
                 .email(userAuth.getUserLogin())
                 .userLogin(userAuth.getUserLogin())

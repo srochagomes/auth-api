@@ -37,6 +37,7 @@ public class UserAccessConfirmedDTO {
 
     private UserStatus status;
 
+    private  CredentialDTO credential;
 
     private UUID userProviderId;
 

@@ -21,7 +21,7 @@ public class UserConfirmedEventListener implements EventListener<UserAccessConfi
     @Override
     public void processEvent(UserAccessConfirmed event) {
         template.sendBodyAndHeaders(template.getDefaultEndpoint(),
-                new UserAccessConfirmParser(event.getPayload()).asDTO(),
+                new UserAccessConfirmParser(event).asDTO(),
                 Collections.emptyMap());
     }
 }

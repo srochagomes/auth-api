@@ -38,6 +38,7 @@ public class AccessConfirm {
     @Column(name = "DT_HR_CONFIRMED")
     private LocalDateTime confirmedAt;
 
+
     public boolean isConfirmed() {
         return Objects.nonNull(this.confirmedAt);
     }

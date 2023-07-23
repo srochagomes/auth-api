@@ -18,7 +18,7 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-public class UserAccountCreatedDTO {
+public class UserAccountDTO {
 
     private String key;
     private AccountCreatedDTO account;
