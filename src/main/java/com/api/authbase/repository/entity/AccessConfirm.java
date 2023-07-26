@@ -45,6 +45,6 @@ public class AccessConfirm {
 
     public void registerConfirmation() {
         this.confirmedAt = LocalDateTime.now();
-        this.getUserAuth().setEmailVerified(true);
+        this.getUserAuth().emailConfirmed();
     }
 }

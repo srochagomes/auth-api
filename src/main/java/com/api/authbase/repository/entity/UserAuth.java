@@ -73,4 +73,8 @@ public class UserAuth {
         return null;
     }
 
+    public void emailConfirmed() {
+        this.setEmailVerified(true);
+        this.setStatus(UserStatus.ACTIVED);
+    }
 }

@@ -1,6 +1,7 @@
 package com.api.authbase.domain.dto;
 
 import com.api.authbase.domain.enums.UserStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class UserAccessConfirmedDTO {
 
     private UserStatus status;
 
+    @JsonIgnore
     private  CredentialDTO credential;
 
     private UUID userProviderId;
