@@ -33,8 +33,6 @@ public class AuthbaseController {
 
     private AuthbaseService service;
 
-    private AccessConfirmService accessConfirmService;
-
     @Operation(
             description = "Autenticação do token API - Post")
     @ApiResponses(value = {

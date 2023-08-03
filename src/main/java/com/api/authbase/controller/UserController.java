@@ -2,8 +2,11 @@ package com.api.authbase.controller;
 
 
 import com.api.authbase.domain.dto.CredentialDTO;
+import com.api.authbase.domain.dto.TokenUserDetail;
 import com.api.authbase.domain.dto.UserAccountDTO;
 import com.api.authbase.service.AccessConfirmService;
+import com.api.authbase.util.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,9 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -29,7 +35,7 @@ public class UserController {
 
 
     private AccessConfirmService accessConfirmService;
-
+    private ObjectMapper mapper;
 
     @Operation(
             description = "Autenticação do token API - Post")
@@ -42,9 +48,18 @@ public class UserController {
     @PutMapping(value = "/emails/{key}/verified", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserAccountDTO> userConfirm(
             @PathVariable(name = "key") UUID key,
-            @RequestBody CredentialDTO newCredential
-    ) {
+            @RequestBody CredentialDTO newCredential,
+            @RequestHeader Map<String, String> headers
+    ) throws Exception  {
         log.info("user confirm");
+
+
+        String jsonUserDetail = headers.get(Constants.USER_DETAIL);
+
+        if (Objects.nonNull(jsonUserDetail)){
+            TokenUserDetail tokenUserDetail = mapper.readValue(jsonUserDetail, TokenUserDetail.class);
+        }
+
         var userAccountDTO = accessConfirmService.processUserConfirm(key, newCredential);
 
         return ResponseEntity.ok().body(userAccountDTO);

@@ -51,7 +51,6 @@ public class AdminProviderService {
             var userRegistered = repository.save(parser.asEntity());
             var accessConfirmCreated = accessConfirmService.create(userRegistered);
 
-
             var applicationFound = applicationDataRepository.findById(userRegistered.getApplicationId())
                     .orElseThrow(()->NotFoundException.builder().description("Application Id not found.").build());
 
