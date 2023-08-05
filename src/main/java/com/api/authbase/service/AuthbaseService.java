@@ -27,11 +27,14 @@ public class AuthbaseService {
     public ResponseEntity<String> userAuthentication(AuthbaseDTO authbaseDTO) {
         KeyCloakAuthbase auth = null;
 
-        Optional<UserAuth> userAuthFound = userAuthRepository.findUserAuthByApplicationIdAndUserLogin(authbaseDTO.getClientId(), authbaseDTO.getUsername());
+        Optional<UserAuth> userAuthFound = authbaseDTO.isUserPasswordFlow()?
+                        userAuthRepository.findUserAuthByApplicationIdAndUserLogin(authbaseDTO.getClientId(), authbaseDTO.getUsername())
+                :Optional.empty();
 
         if (userAuthFound.isPresent()){
             authbaseDTO.setUsername(userAuthFound.get().getKey().toString());
         }
+
 
         auth = KeyCloakAuthbase.builder()
                 .grant_type(authbaseDTO.getGranttype())
@@ -39,9 +42,10 @@ public class AuthbaseService {
                 .client_secret(authbaseDTO.getSecret())
                 .password(authbaseDTO.getPassword())
                 .username(authbaseDTO.getUsername())
+                .code(authbaseDTO.getCode())
+                .redirect_uri(authbaseDTO.getRedirectURI())
                 .scope(authbaseDTO.getScope())
                 .build();
-
 
         return this.keyCloakAuthClient.processAuthMicrosservices(auth);
     }

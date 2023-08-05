@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class KeyCloakAuthbase {
 
     private String grant_type;
@@ -26,6 +28,10 @@ public class KeyCloakAuthbase {
     private String username;
 
     private String password;
+
+    private String code;
+
+    private String redirect_uri;
 
     private String scope;
 

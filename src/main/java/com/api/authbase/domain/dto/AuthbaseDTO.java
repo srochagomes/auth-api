@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthbaseDTO {
 
+    public static final String PASSWORD_FLOW = "password";
     @JsonProperty("client_id")
     private String clientId;
 
@@ -35,11 +36,18 @@ public class AuthbaseDTO {
 
     private String scope;
 
+    private String code;
+
+    @JsonProperty("redirect_uri")
+    private String redirectURI;
+
     @JsonProperty("refresh_token")
     private String refreshToken;
 
     @Builder.Default
     private boolean clientDefault = false;
 
-
+    public boolean isUserPasswordFlow() {
+        return PASSWORD_FLOW.equals(granttype);
+    }
 }

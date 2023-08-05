@@ -3,7 +3,6 @@ package com.api.authbase.controller;
 
 import com.api.authbase.domain.Authbase;
 import com.api.authbase.domain.dto.AuthbaseDTO;
-import com.api.authbase.service.AccessConfirmService;
 import com.api.authbase.service.AuthbaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
