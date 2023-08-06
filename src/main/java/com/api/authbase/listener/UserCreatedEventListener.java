@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UserCreatedEventListener implements EventListener<UserAccountCreatedDTO>{
+public class UserCreatedEventListener implements TypeEventListener<UserAccountCreatedDTO> {
 
     private AdminProviderService service;
 

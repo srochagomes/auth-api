@@ -1,6 +1,6 @@
 package com.api.authbase.listener;
 
-public interface EventListener<T> {
+public interface TypeEventListener<T> {
 
     void processEvent(T t);
 

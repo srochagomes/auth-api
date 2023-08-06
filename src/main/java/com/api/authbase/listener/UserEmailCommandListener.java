@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Component
 @AllArgsConstructor
-public class UserEmailCommandListener implements EventListener<UserAuthCreated>{
+public class UserEmailCommandListener implements TypeEventListener<UserAuthCreated> {
 
     @Produce("{{command.origin.user-auth-send-email}}")
     private ProducerTemplate template;

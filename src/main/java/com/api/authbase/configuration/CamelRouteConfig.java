@@ -1,6 +1,7 @@
 package com.api.authbase.configuration;
 
 
+import com.api.authbase.domain.dto.TokenDTO;
 import com.api.authbase.domain.dto.UserAccessConfirmedDTO;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
 import com.api.authbase.listener.UserCreatedEventListener;
@@ -22,8 +23,10 @@ public class CamelRouteConfig extends RouteBuilder {
     public void configure() throws Exception {
         var userAccountCreatedDataFormat = new JacksonDataFormat(UserAccountCreatedDTO.class);
         var userAccessConfirmedDataFormat = new JacksonDataFormat(UserAccessConfirmedDTO.class);
+        var userLoginSocialDataFormat = new JacksonDataFormat(TokenDTO.class);
         userAccountCreatedDataFormat.addModule(new JavaTimeModule());
         userAccessConfirmedDataFormat.addModule(new JavaTimeModule());
+        userLoginSocialDataFormat.addModule(new JavaTimeModule());
 
         from("{{events.origin.rabbit-mq.user-created}}")
                 .log("recebendo mensagem do RabbitMQ: ${body}")
@@ -43,5 +46,20 @@ public class CamelRouteConfig extends RouteBuilder {
                 .marshal(userAccessConfirmedDataFormat)
                 .to("{{command.destiny.rabbit-mq.user-access-confirmed")
                 .end();
+
+
+        from("{{events.origin.user-login-social-requested}}")
+                .marshal(userLoginSocialDataFormat)
+                .log("Enviando mensagem para o RabbitMQ login-social: ${body}")
+                .to("{{events.destiny.rabbit-mq.user-login-social-requested")
+                .end();
+
+//        from("{{events.origin.rabbit-mq.user-login-social-requested}}")
+//                .log("Enviando mensagem para o RabbitMQ: ${body}")
+//                .marshal(userLoginSocialDataFormat)
+//                //.bean(adminProviderService,"confirmEmailVerified")
+//                .end();
+
+
     }
 }

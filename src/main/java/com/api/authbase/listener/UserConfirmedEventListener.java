@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Component
 @AllArgsConstructor
-public class UserConfirmedEventListener implements EventListener<UserAccessConfirmed>{
+public class UserConfirmedEventListener implements TypeEventListener<UserAccessConfirmed> {
 
     @Produce("{{command.origin.user-access-confirmed}}")
     private ProducerTemplate template;

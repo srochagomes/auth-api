@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -34,5 +36,10 @@ public class KeyCloakAuthbase {
     private String redirect_uri;
 
     private String scope;
+
+
+    public boolean isCodeFlow(){
+        return Objects.nonNull(this.code);
+    }
 
 }

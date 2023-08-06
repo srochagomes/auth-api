@@ -4,10 +4,14 @@ package com.api.authbase.service;
 import com.api.authbase.configuration.KeyCloakAuthClient;
 import com.api.authbase.domain.dto.AuthbaseDTO;
 import com.api.authbase.domain.dto.KeyCloakAuthbase;
+import com.api.authbase.domain.dto.TokenDTO;
+import com.api.authbase.event.UserSocialLoginTokenRequested;
 import com.api.authbase.repository.UserAuthRepository;
 import com.api.authbase.repository.entity.UserAuth;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,9 @@ public class AuthbaseService {
 
     private UserAuthRepository userAuthRepository;
 
+    private ApplicationEventPublisher eventPublisher;
+
+    private ObjectMapper mapper;
 
     public ResponseEntity<String> userAuthentication(AuthbaseDTO authbaseDTO) {
         KeyCloakAuthbase auth = null;
@@ -47,7 +54,15 @@ public class AuthbaseService {
                 .scope(authbaseDTO.getScope())
                 .build();
 
-        return this.keyCloakAuthClient.processAuthMicrosservices(auth);
+        ResponseEntity<String> credentials = this.keyCloakAuthClient.processAuthMicrosservices(auth);
+
+        if (auth.isCodeFlow()){
+            TokenDTO token = TokenDTO.transform(mapper, credentials.getBody());
+            eventPublisher.publishEvent(UserSocialLoginTokenRequested.newInstance(this, token));
+        }
+
+
+        return credentials;
     }
 
 

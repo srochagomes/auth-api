@@ -3,6 +3,7 @@ package com.api.authbase.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,8 +34,21 @@ public class TokenDTO {
     @JsonProperty("token_type")
     private String tokenType;
 
+    @JsonProperty("id_token")
+    private String idToken;
+
+
     @Builder.Default
     private LocalDateTime timeCreated = LocalDateTime.now();
+
+    public static TokenDTO transform(ObjectMapper mapper, String body) {
+        try{
+            return mapper.readValue(body,TokenDTO.class);
+        }catch (Exception e ){
+            throw new RuntimeException(e);
+        }
+
+    }
 
     public boolean isExpired() {
         return this.timeCreated.plus(this.expireIn, ChronoUnit.SECONDS).isBefore(LocalDateTime.now());
