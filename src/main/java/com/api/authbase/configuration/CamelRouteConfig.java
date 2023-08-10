@@ -4,8 +4,10 @@ package com.api.authbase.configuration;
 import com.api.authbase.domain.dto.TokenDTO;
 import com.api.authbase.domain.dto.UserAccessConfirmedDTO;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
+import com.api.authbase.domain.dto.provider.UserEventDTO;
 import com.api.authbase.listener.UserCreatedEventListener;
 import com.api.authbase.service.AdminProviderService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.AllArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
@@ -18,6 +20,7 @@ public class CamelRouteConfig extends RouteBuilder {
 
     private UserCreatedEventListener userCreatedEventListener;
     private AdminProviderService adminProviderService;
+    private ObjectMapper mapper;
 
     @Override
     public void configure() throws Exception {
@@ -26,6 +29,9 @@ public class CamelRouteConfig extends RouteBuilder {
         var userLoginSocialDataFormat = new JacksonDataFormat(TokenDTO.class);
         userAccountCreatedDataFormat.addModule(new JavaTimeModule());
         userAccessConfirmedDataFormat.addModule(new JavaTimeModule());
+        userLoginSocialDataFormat.addModule(new JavaTimeModule());
+
+        var objectDataFormat = new JacksonDataFormat(mapper, UserEventDTO.class);
         userLoginSocialDataFormat.addModule(new JavaTimeModule());
 
         from("{{events.origin.rabbit-mq.user-created}}")
@@ -48,17 +54,12 @@ public class CamelRouteConfig extends RouteBuilder {
                 .end();
 
 
-        from("{{events.origin.user-login-social-requested}}")
-                .marshal(userLoginSocialDataFormat)
-                .log("Enviando mensagem para o RabbitMQ login-social: ${body}")
-                .to("{{events.destiny.rabbit-mq.user-login-social-requested")
-                .end();
 
-//        from("{{events.origin.rabbit-mq.user-login-social-requested}}")
-//                .log("Enviando mensagem para o RabbitMQ: ${body}")
-//                .marshal(userLoginSocialDataFormat)
-//                //.bean(adminProviderService,"confirmEmailVerified")
-//                .end();
+        from("{{events.origin.rabbit-mq.user.keycloak.events}}")
+                .log("Recebendo evento de cliente keycloak pelo RabbitMQ: ${body}")
+                .unmarshal(objectDataFormat)
+                .bean(adminProviderService,"captureUserEvents")
+                .end();
 
 
     }

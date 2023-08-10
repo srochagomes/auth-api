@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class UserDTO {
 
     private String username;
@@ -27,5 +29,10 @@ public class UserDTO {
     private Boolean emailVerified;
     private Boolean enabled;
     private List<CredentialRepresentationDTO> credentials;
+    private String id;
+    private String emailConstraint;
+    private String realmId;
+    private int notBefore;
+    private List<FederatedIdentityDTO> federateIdentities;
 
 }

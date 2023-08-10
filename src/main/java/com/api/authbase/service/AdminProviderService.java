@@ -5,6 +5,7 @@ import com.api.authbase.domain.dto.UserAccessConfirmedDTO;
 import com.api.authbase.domain.dto.UserAccountCreatedDTO;
 import com.api.authbase.domain.dto.provider.CredentialRepresentationDTO;
 import com.api.authbase.domain.dto.provider.UserDTO;
+import com.api.authbase.domain.dto.provider.UserEventDTO;
 import com.api.authbase.domain.enums.DomainType;
 import com.api.authbase.domain.enums.MessageType;
 import com.api.authbase.domain.parse.UserAuthCreatedParser;
@@ -85,6 +86,11 @@ public class AdminProviderService {
         }
     }
 
+    public void captureUserEvents(UserEventDTO userEventDTO){
+
+        System.out.println(userEventDTO);
+
+    }
     public UserAccessConfirmedDTO confirmEmailVerified(UserAccessConfirmedDTO userAccessConfirmeDTO){
 
         keyCloakAdminClient.userUpdate(
