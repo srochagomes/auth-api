@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,8 +21,10 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserEventDTO {
 
+    private UUID id;
+
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSSSS", timezone = "America/Sao_Paulo")
-    private LocalDateTime id;
+    private LocalDateTime createAt;
 
     private String event;
 
