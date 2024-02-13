@@ -10,7 +10,7 @@
 
 	<groupId>com.api</groupId>
 	<artifactId>auth-server</artifactId>
-	<version>0.0.31</version>
+	<version>0.0.32</version>
 
     <properties>
         <java.version>21</java.version>
@@ -19,7 +19,6 @@
         <guava.version>20.0</guava.version>
         <profile>DEFAULT</profile>
         <httpclient.version>4.5.8</httpclient.version>
-        <spring.cloud.kubernetes.version>1.1.6.RELEASE</spring.cloud.kubernetes.version>
         <camel.project.version>4.0.0-M3</camel.project.version>
     </properties>
 
@@ -147,11 +146,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-kubernetes-fabric8-config</artifactId>
         </dependency>
 
         <dependency>
@@ -294,19 +288,12 @@
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.3.0</version>
+                <version>4.8.3.1</version>
 				<configuration>
 					<xmlOutput>true</xmlOutput>
 					<threshold>High</threshold>
 					<effort>High</effort>
 					<failOnError>true</failOnError>
-					<plugins>
-						<plugin>
-							<groupId>com.h3xstream.findsecbugs</groupId>
-							<artifactId>findsecbugs-plugin</artifactId>
-							<version>1.12.0</version>
-						</plugin>
-					</plugins>
 				</configuration>
 				<executions>
 					<execution>
